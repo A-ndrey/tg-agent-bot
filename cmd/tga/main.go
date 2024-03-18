@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	var isFile bool
-	flag.BoolVar(&isFile, "f", false, "send file")
+	var fileName string
+	flag.StringVar(&fileName, "f", "", "send file")
 	flag.Parse()
 
 	if len(os.Args) > 1 && os.Args[1] == "init" {
@@ -30,8 +30,8 @@ func main() {
 
 	b := bot.New(conf.Token, conf.ChatID)
 
-	if isFile {
-		if err := b.SendFile(os.Stdin); err != nil {
+	if fileName != "" {
+		if err := b.SendFile(os.Stdin, fileName); err != nil {
 			fmt.Println(err)
 			return
 		}

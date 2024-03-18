@@ -81,13 +81,13 @@ func (b *Bot) SendMessage(msg string) error {
 	return nil
 }
 
-func (b *Bot) SendFile(reader io.Reader) error {
+func (b *Bot) SendFile(reader io.Reader, fileName string) error {
 	body := bytes.Buffer{}
 	w := multipart.NewWriter(&body)
 	if err := w.WriteField("chat_id", strconv.Itoa(b.chatID)); err != nil {
 		return err
 	}
-	part, err := w.CreateFormFile("document", "file")
+	part, err := w.CreateFormFile("document", fileName)
 	if err != nil {
 		return err
 	}
